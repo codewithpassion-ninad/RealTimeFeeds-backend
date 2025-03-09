@@ -9,7 +9,6 @@ transformers
 scikit-learn
 numpy
 pandas
-email
 twilio
 werkzeug
 gunicorn
