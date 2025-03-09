@@ -5,6 +5,8 @@ requests
 beautifulsoup4
 pymongo
 tensorflow
+tf-keras
+keras<3.0.0
 transformers
 scikit-learn
 numpy
