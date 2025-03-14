@@ -16,22 +16,22 @@ from twilio.rest import Client
 import os
 
 # MongoDB connection
-MONGO_URI = 'mongodb+srv://capstone:capstone@cluster0.wrleq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+MONGO_URI = os.getenv('MONGO_URI')
 client = MongoClient(MONGO_URI)
 db = client.cve_database
 user_db = client.user_db
 collection = db.cve_details
 subscribers_collection = user_db.subscribers
 
-TWILIO_SID = "ACaa903f42262dac15110ef9a60dd1109b"
-TWILIO_AUTH_TOKEN = "b28a430b7b75c1f2611dedeea2adffe3"
-TWILIO_PHONE = "+18317045188"
-twilio_client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
-
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SMTP_USER = "ninadsugandhi@gmail.com"
-SMTP_PASS = "hftg eghd qcle cmyv"
+
+TWILIO_SID = os.getenv('TWILIO_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE = os.getenv('TWILIO_PHONE_NUMBER')
+twilio_client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+SMTP_USER = os.getenv('SMTP_USER')
+SMTP_PASS = os.getenv('SMTP_PASS')
 
 # Load enhanced attack keywords
 # with open('enhanced_attack_keywords.json', 'r') as file:
