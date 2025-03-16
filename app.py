@@ -11,6 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 import threading
 import time
+import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -27,7 +28,8 @@ user_collection = user_db.user_details
 user_queries = user_db.user_queries
 subscribers_collection = user_db.subscribers
 
-# User Registration
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 @app.route('/api/v1/auth/register', methods=['POST'])
 def register_user():
     data = request.json
@@ -66,14 +68,13 @@ def login_user():
 
 @app.route('/api/v1/cve/data', methods=['GET'])
 def get_incidents():
-    page = request.args.get('page', 1)  # Get page number from query parameters (default 1)
-    limit = request.args.get('limit', 12)  # Get limit from query parameters (default 12)
+    page = request.args.get('page', 1)
+    limit = request.args.get('limit', 12)
     result = get_cve_data(page, limit)
 
-    if "error" in result:  # Check for errors from get_cve_data
-        return jsonify(result), result.get("error", 500)  # Return error and status code
-
-    return jsonify(result)  # Return the data
+    if "error" in result: 
+        return jsonify(result), result.get("error", 500) 
+    return jsonify(result)
 
 @app.route('/api/v1/cve/details/<cve_id>', methods=['GET'])
 def get_incident(cve_id):
@@ -319,7 +320,6 @@ def scrape():
         else:
             print(f"Could not fetch data for CVE ID {cve_id}")
 
-# Start the continuous scraping in a separate thread
 scraping_thread = threading.Thread(target=scrape_continuously)
 scraping_thread.daemon = True
 scraping_thread.start()

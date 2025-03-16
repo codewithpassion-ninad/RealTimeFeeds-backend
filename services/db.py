@@ -1,7 +1,9 @@
 from pymongo import MongoClient
+import os
 
 # MongoDB connection
 MONGO_URI = 'mongodb+srv://capstone:capstone@cluster0.wrleq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+# MONGO_URI = os.getenv('MONGO_URI')
 client = MongoClient(MONGO_URI)
 db = client.cve_database
 collection = db.cve_details

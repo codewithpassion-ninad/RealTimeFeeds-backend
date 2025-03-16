@@ -4,7 +4,7 @@ Flask-SocketIO
 requests
 beautifulsoup4
 pymongo
-tensorflow
+tensorflow-cpu
 tf-keras
 keras<3.0.0
 transformers

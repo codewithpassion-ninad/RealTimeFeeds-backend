@@ -16,7 +16,8 @@ from twilio.rest import Client
 import os
 
 # MongoDB connection
-MONGO_URI = os.getenv('MONGO_URI')
+MONGO_URI = 'mongodb+srv://capstone:capstone@cluster0.wrleq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+# MONGO_URI = os.getenv('MONGO_URI')
 client = MongoClient(MONGO_URI)
 db = client.cve_database
 user_db = client.user_db
@@ -26,12 +27,12 @@ subscribers_collection = user_db.subscribers
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 
-TWILIO_SID = os.getenv('TWILIO_SID')
-TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
-TWILIO_PHONE = os.getenv('TWILIO_PHONE_NUMBER')
-twilio_client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
-SMTP_USER = os.getenv('SMTP_USER')
-SMTP_PASS = os.getenv('SMTP_PASS')
+# TWILIO_SID = os.getenv('TWILIO_SID')
+# TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+# TWILIO_PHONE = os.getenv('TWILIO_PHONE_NUMBER')
+# twilio_client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+SMTP_USER = "ninadsugandhi@gmail.com"
+SMTP_PASS = "hftg eghd qcle cmyv"
 
 # Load enhanced attack keywords
 # with open('enhanced_attack_keywords.json', 'r') as file:
@@ -48,10 +49,10 @@ def send_email(subject, body, to_email):
         server.login(SMTP_USER, SMTP_PASS)
         server.sendmail(msg["From"], [msg["To"]], msg.as_string())
 
-def send_sms(body, to_phone):
-    twilio_client.messages.create(
-        body=body, from_=TWILIO_PHONE, to=to_phone
-    )
+# def send_sms(body, to_phone):
+#     twilio_client.messages.create(
+#         body=body, from_=TWILIO_PHONE, to=to_phone
+#     )
 
 def notify_subscribers(incident):
     subject = "New Cyber Incident Alert"
@@ -62,8 +63,8 @@ def notify_subscribers(incident):
     for sub in subscribers:
         if sub["email"]:
             send_email(subject, body, sub["email"])
-        if sub["phone"]:
-            send_sms(body, sub["phone"])
+        # if sub["phone"]:
+        #     send_sms(body, sub["phone"])
     print("Notified subscribers.")
 
 # Function to classify attack type
