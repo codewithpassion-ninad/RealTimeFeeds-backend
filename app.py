@@ -226,7 +226,7 @@ def scrape_continuously():
 @app.route("/api/v1/scrape", methods=["POST"])
 def scrape():
     urls = [
-        "https://www.nciipc.gov.in/alert_and_advisories.html"
+        "https://www.nciipc.gov.in/alerts_and_advisories.html"
     ]
     all_data = []
     headers = {
@@ -325,4 +325,4 @@ scraping_thread.daemon = True
 scraping_thread.start()
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    app.run(host="0.0.0.0", port=8000)
