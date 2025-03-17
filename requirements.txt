@@ -4,9 +4,9 @@ Flask-SocketIO
 requests
 beautifulsoup4
 pymongo
-tensorflow-cpu
+tensorflow>=2.9.0, <3.0.0
+keras>=2.9.0, <3.0.0
 tf-keras
-keras<3.0.0
 transformers
 scikit-learn
 numpy
